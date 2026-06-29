@@ -334,3 +334,283 @@ body {
   body { padding: 1rem; }
   .binder-grid { grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); }
 }
+
+/* Modal */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal {
+  position: relative;
+  background: var(--color-bg);
+  border-radius: var(--radius);
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  animation: modalSlideIn 0.2s ease-out;
+}
+
+@keyframes modalSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-close {
+  position: sticky;
+  top: 10px;
+  right: 10px;
+  float: right;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background 0.1s;
+}
+
+.modal-close:hover {
+  background: var(--color-border);
+}
+
+.modal-loading,
+.modal-error {
+  padding: 2rem;
+  text-align: center;
+  font-size: 14px;
+}
+
+.modal-error {
+  color: var(--color-danger);
+}
+
+.modal-content {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.modal-image-section {
+  min-width: 200px;
+}
+
+.modal-card-image {
+  width: 100%;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+
+.modal-image-fallback {
+  width: 250px;
+  height: 350px;
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+}
+
+.modal-info-section h2 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+}
+
+.modal-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 13px;
+}
+
+.meta-item {
+  color: var(--color-text-secondary);
+}
+
+.meta-item strong {
+  color: var(--color-text);
+  font-weight: 500;
+  margin-right: 0.4rem;
+}
+
+.modal-types,
+.modal-attacks,
+.modal-abilities,
+.modal-weaknesses,
+.modal-resistances,
+.modal-retreat,
+.modal-artist {
+  margin-bottom: 1.5rem;
+  font-size: 13px;
+}
+
+.modal-types strong,
+.modal-attacks strong,
+.modal-abilities strong,
+.modal-weaknesses strong,
+.modal-resistances strong,
+.modal-retreat strong,
+.modal-artist strong {
+  display: block;
+  color: var(--color-text);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.types-list {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.type-badge {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.type-Fire { background: #F08030; }
+.type-Water { background: #6890F0; }
+.type-Grass { background: #78C850; }
+.type-Psychic { background: #F85888; }
+.type-Electric { background: #F8D030; color: #333; }
+.type-Fighting { background: #C03028; }
+.type-Dark { background: #705848; }
+.type-Metal { background: #B8B8D0; color: #333; }
+.type-Dragon { background: #7038F8; }
+.type-Colorless { background: #A8A878; }
+.type-Fairy { background: #EE99AC; color: #333; }
+
+.attack {
+  background: var(--color-surface);
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  border-left: 3px solid var(--color-accent);
+}
+
+.attack-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+}
+
+.attack-cost {
+  background: var(--color-accent-bg);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+}
+
+.attack-name {
+  flex: 1;
+  color: var(--color-text);
+}
+
+.attack-damage {
+  color: var(--color-danger);
+  font-weight: 500;
+}
+
+.attack-text {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.ability {
+  background: var(--color-surface);
+  padding: 0.75rem;
+  border-radius: var(--radius);
+  margin-bottom: 0.5rem;
+  border-left: 3px solid #78C850;
+}
+
+.ability-name {
+  font-weight: 500;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+}
+
+.ability-text {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.weakness,
+.resistance {
+  display: inline-block;
+  background: var(--color-surface);
+  padding: 4px 10px;
+  border-radius: 4px;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 12px;
+}
+
+.modal-artist {
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 700px) {
+  .modal {
+    max-width: 95vw;
+  }
+
+  .modal-content {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.5rem;
+  }
+
+  .modal-image-section {
+    min-width: unset;
+  }
+
+  .modal-image-fallback {
+    width: 100%;
+    height: auto;
+  }
+
+  .modal-info-section h2 {
+    font-size: 18px;
+  }
+}

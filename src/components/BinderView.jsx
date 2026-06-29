@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import CardSlot from "./CardSlot";
+import CardDetailModal from "./CardDetailModal";
 import StatsBar from "./StatsBar";
 
 const CONDITIONS = ["Mint", "Near Mint", "Excellent", "Good", "Played"];
@@ -17,6 +18,7 @@ export default function BinderView({ collection, onRemove }) {
   const [filterRarity, setFilterRarity] = useState("");
   const [filterCondition, setFilterCondition] = useState("");
   const [sort, setSort] = useState("added");
+  const [selectedCardId, setSelectedCardId] = useState(null);
 
   const filtered = useMemo(() => {
     let cards = [...collection];
@@ -62,9 +64,18 @@ export default function BinderView({ collection, onRemove }) {
       ) : (
         <div className="binder-grid" role="list">
           {filtered.map((card) => (
-            <CardSlot key={card.id} card={card} onRemove={onRemove} />
+            <CardSlot
+              key={card.id}
+              card={card}
+              onRemove={onRemove}
+              onSelect={setSelectedCardId}
+            />
           ))}
         </div>
+      )}
+
+      {selectedCardId && (
+        <CardDetailModal cardId={selectedCardId} onClose={() => setSelectedCardId(null)} />
       )}
     </div>
   );
