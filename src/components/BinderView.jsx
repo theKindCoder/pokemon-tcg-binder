@@ -18,7 +18,7 @@ export default function BinderView({ collection, onRemove }) {
   const [filterRarity, setFilterRarity] = useState("");
   const [filterCondition, setFilterCondition] = useState("");
   const [sort, setSort] = useState("added");
-  const [selectedCardId, setSelectedCardId] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
 
   const filtered = useMemo(() => {
     let cards = [...collection];
@@ -68,14 +68,18 @@ export default function BinderView({ collection, onRemove }) {
               key={card.id}
               card={card}
               onRemove={onRemove}
-              onSelect={setSelectedCardId}
+              onSelect={setSelectedCard}
             />
           ))}
         </div>
       )}
 
-      {selectedCardId && (
-        <CardDetailModal cardId={selectedCardId} onClose={() => setSelectedCardId(null)} />
+      {selectedCard && (
+        <CardDetailModal
+          cardId={selectedCard.id}
+          cardApiData={selectedCard.apiData}
+          onClose={() => setSelectedCard(null)}
+        />
       )}
     </div>
   );

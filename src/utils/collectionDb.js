@@ -12,7 +12,8 @@ const DB_SCHEMA = `
     types TEXT NOT NULL,
     image TEXT NOT NULL,
     condition TEXT NOT NULL,
-    addedAt INTEGER NOT NULL
+    addedAt INTEGER NOT NULL,
+    apiData TEXT
   );
 `;
 
@@ -56,7 +57,14 @@ export async function getCollectionDb() {
           const bytes = decodeDb(persisted);
           const restoredDb = new sqlLib.Database(bytes);
           restoredDb.run(DB_SCHEMA);
+          // Migrate: Add apiData column if it doesn't exist
+          try {
+            restoredDb.run("ALTER TABLE cards ADD COLUMN apiData TEXT");
+          } catch (e) {
+            // Column already exists, ignore
+          }
           dbInstance = restoredDb;
+          persistDb(restoredDb); // Persist after migration
           return restoredDb;
         } catch (error) {
           console.warn("Unable to restore persisted collection database", error);
@@ -76,7 +84,7 @@ export async function getCollectionDb() {
 export async function loadCollection() {
   const db = await getCollectionDb();
   const rows = db.exec(`
-    SELECT id, name, setName, number, rarity, types, image, condition, addedAt
+    SELECT id, name, setName, number, rarity, types, image, condition, addedAt, apiData
     FROM cards
     ORDER BY addedAt DESC
   `);
@@ -93,6 +101,7 @@ export async function loadCollection() {
     image: row[6],
     condition: row[7],
     addedAt: row[8],
+    apiData: row[9] ? JSON.parse(row[9]) : null,
   }));
 }
 
@@ -109,8 +118,9 @@ export async function saveCard(card) {
         types,
         image,
         condition,
-        addedAt
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        addedAt,
+        apiData
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
     [
       card.id,
@@ -122,6 +132,7 @@ export async function saveCard(card) {
       card.image,
       card.condition,
       card.addedAt,
+      card.apiData ? JSON.stringify(card.apiData) : null,
     ]
   );
   persistDb(db);

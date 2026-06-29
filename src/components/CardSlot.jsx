@@ -9,7 +9,7 @@ export default function CardSlot({card, onRemove, onSelect}) {
       className="card-slot"
       role="listitem"
       title={card.name}
-      onClick={() => onSelect(card.id)}
+      onClick={() => onSelect(card)}
       style={{
       cursor: "pointer"
     }}>

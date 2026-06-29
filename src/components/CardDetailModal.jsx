@@ -1,15 +1,21 @@
 import {useEffect, useState} from "react";
 import {getCard} from "../utils/api";
 
-export default function CardDetailModal({cardId, onClose}) {
+export default function CardDetailModal({cardId, onClose, cardApiData}) {
   const [card,
-    setCard] = useState(null);
+    setCard] = useState(cardApiData ?? null);
   const [loading,
-    setLoading] = useState(true);
+    setLoading] = useState(!cardApiData);
   const [error,
     setError] = useState(null);
 
   useEffect(() => {
+    if (cardApiData) {
+      setCard(cardApiData);
+      setLoading(false);
+      return;
+    }
+
     async function fetchCardDetails() {
       try {
         setLoading(true);
@@ -24,7 +30,7 @@ export default function CardDetailModal({cardId, onClose}) {
     }
 
     fetchCardDetails();
-  }, [cardId]);
+  }, [cardId, cardApiData]);
 
   const handleBackdropClick = (e) => {
     if (e.target === e.currentTarget) {

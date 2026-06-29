@@ -33,6 +33,7 @@ export default function App() {
       image: card.images?.small ?? "",
       condition,
       addedAt: Date.now(),
+      apiData: card,
     };
 
     await saveCard(normalizedCard);
