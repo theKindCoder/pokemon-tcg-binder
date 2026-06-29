@@ -354,7 +354,7 @@ body {
   position: relative;
   background: var(--color-bg);
   border-radius: var(--radius);
-  max-width: 800px;
+  max-width: 80vw;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
@@ -414,8 +414,25 @@ body {
   padding: 2rem;
 }
 
+.modal-footer {
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.modal-footer a {
+  font-size: 13px;
+  padding: 6px 12px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: #333;
+}
+
 .modal-image-section {
-  min-width: 200px;
+  max-width: 400px;
 }
 
 .modal-card-image {
@@ -425,8 +442,8 @@ body {
 }
 
 .modal-image-fallback {
-  width: 250px;
-  height: 350px;
+  width: 400px;
+  height: 280px;
   background: var(--color-surface);
   border-radius: var(--radius);
   border: 1px solid var(--color-border);
@@ -497,21 +514,23 @@ body {
 .type-badge {
   font-size: 12px;
   padding: 4px 10px;
+  margin-right: 0.5rem;
   border-radius: 4px;
   font-weight: 500;
   color: #fff;
+  background: #333;
 }
 
 .type-Fire { background: #F08030; }
 .type-Water { background: #6890F0; }
 .type-Grass { background: #78C850; }
 .type-Psychic { background: #F85888; }
-.type-Electric { background: #F8D030; color: #333; }
-.type-Fighting { background: #C03028; }
+.type-Lightning { background: #F8D030; color: #333; }
+.type-Fighting { background: #74302d; }
 .type-Dark { background: #705848; }
 .type-Metal { background: #B8B8D0; color: #333; }
-.type-Dragon { background: #7038F8; }
-.type-Colorless { background: #A8A878; }
+.type-Dragon { background: #A8A878; }
+.type-Colorless { background: #afafaf; }
 .type-Fairy { background: #EE99AC; color: #333; }
 
 .attack {
@@ -531,8 +550,6 @@ body {
 }
 
 .attack-cost {
-  background: var(--color-accent-bg);
-  padding: 2px 6px;
   border-radius: 3px;
   font-size: 11px;
 }
@@ -569,6 +586,13 @@ body {
 }
 
 .ability-text {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.flavor-text {
   font-size: 12px;
   color: var(--color-text-secondary);
   margin: 0;

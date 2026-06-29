@@ -89,7 +89,11 @@ export default function CardDetailModal({cardId, onClose}) {
                         <div className="types-list">
                           {card
                             .types
-                            .join(", ")}
+                            .map((type, idx) => (
+                              <span key={idx} className={`type-badge type-${type}`}>
+                                {type}
+                              </span>
+                            ))}
                         </div>
                       </div>
                     )}
@@ -107,7 +111,11 @@ export default function CardDetailModal({cardId, onClose}) {
                                     ?.length > 0 && (
                                       <span className="attack-cost">{attack
                                           .cost
-                                          .join(" ")}</span>
+                                          .map((c) => (
+                                            <span key={c} className={`type-badge type-${c}`}>
+                                              {c}
+                                            </span>
+                                          ))}</span>
                                     )}
                                   <span className="attack-name">{attack.name}</span>
                                   {attack.damage && <span className="attack-damage">{attack.damage}</span>}
@@ -140,7 +148,7 @@ export default function CardDetailModal({cardId, onClose}) {
                           {card
                             .weaknesses
                             .map((w, idx) => (
-                              <span key={idx} className="weakness">
+                              <span key={idx} className={`type-badge type-${w.type}`}>
                                 {w.type}
                                 {w.value}
                               </span>
@@ -155,7 +163,7 @@ export default function CardDetailModal({cardId, onClose}) {
                           {card
                             .resistances
                             .map((r, idx) => (
-                              <span key={idx} className="resistance">
+                              <span key={idx} className={`type-badge type-${r.type} resistance`}>
                                 {r.type}
                                 {r.value}
                               </span>
@@ -167,9 +175,14 @@ export default function CardDetailModal({cardId, onClose}) {
                       ?.length > 0 && (
                         <div className="modal-retreat">
                           <strong>Retreat Cost:</strong>
-                          {card
+                          <span
+                            className={`type-badge type-${card
                             .retreatCost
-                            .join(" ")}
+                            .join(" ")}`}>
+                            {card
+                              .retreatCost
+                              .join(" ")}
+                          </span>
                         </div>
                       )}
 
@@ -179,10 +192,32 @@ export default function CardDetailModal({cardId, onClose}) {
                         {card.artist}
                       </div>
                     )}
+
+                    {card.flavorText && (
+                      <div className="flavor-text">
+                        <strong>Flavor Text:</strong>
+                        <p>{card.flavorText}</p>
+                      </div>
+                    )}
                   </div>
                 </div>
               )
               : null}
+
+        {card
+          ? (
+            <div className="modal-footer">
+              <a
+                href={card.tcgplayer
+                ?.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="external-link">
+                View on TCGPlayer
+              </a>
+            </div>
+          )
+          : null}
       </div>
     </div>
   );
